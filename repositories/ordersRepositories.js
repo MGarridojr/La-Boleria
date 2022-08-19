@@ -9,8 +9,33 @@ async function createOrderRepository(clientId, cakeId, quantity, totalPrice){
     return db.query(query, values)
 }
 
+async function showAllordersReporsitory(){
+    const query = `
+        SELECT 
+            cl.id as "clientId", 
+            cl."name" as "clientName", 
+            cl.address, 
+            cl.phone, 
+            ca.id as "cakeId", 
+            ca."name" as "cakeName",
+            ca.price,
+            ca.description,
+            ca.image,
+            o.id as "orderId",
+            o."createdAt",
+            o.quantity,
+            o."totalPrice"  FROM orders o
+        JOIN clients cl ON cl.id = o."clientId"
+        JOIN cakes ca ON ca.id = o."cakeId"`
+
+   const orders = await db.query(query)
+
+   return orders.rows
+}
+
 const ordersRepository = {
-    createOrderRepository
+    createOrderRepository,
+    showAllordersReporsitory
 }
 
 export default ordersRepository
