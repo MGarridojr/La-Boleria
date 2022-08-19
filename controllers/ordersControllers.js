@@ -78,3 +78,16 @@ export async function getOrder(req, res){
         return res.status(500).send("⚠ Error in getOrder")
     }
 }
+
+export async function getClientsOrders(req, res){
+    const { id } = req.params
+
+    try{
+        const orders = await ordersRepository.showClientsOrders(id)
+        return res.send(orders)
+
+    } catch (error) {
+        console.log("⚠ Error in getClientsOrders",error)
+        return res.status(500).send("⚠ Error in getClientsOrders")
+    }
+}

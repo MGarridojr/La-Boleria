@@ -60,10 +60,27 @@ async function showOrderReporsitory(id){
    return orders.rows
 }
 
+async function showClientsOrders(clientId){
+    const query = `
+        SELECT 
+            o.id as "orderId",
+            o.quantity,
+            o."createdAt",
+            o."totalPrice",
+            c.name as "cakeName" FROM orders o 
+        JOIN cakes c ON c.id = o."cakeId"
+        WHERE o."clientId" = $1`
+    
+    const value = [clientId]
+    const orders = await db.query(query, value)
+    return orders.rows
+}
+
 const ordersRepository = {
     createOrderRepository,
     showAllordersReporsitory,
-    showOrderReporsitory
+    showOrderReporsitory,
+    showClientsOrders
 }
 
 export default ordersRepository
