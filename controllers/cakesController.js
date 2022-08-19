@@ -1,4 +1,4 @@
-import cakesRepository from "../repositories/cakesRepository.js"
+import cakesRepository from "../repositories/cakesRepositories.js"
 
 
 export async function createCake(req, res){
